@@ -1,0 +1,27 @@
+@keyframes circle {
+    from { transform:rotate(0deg); }
+    to { transform:rotate(360deg); }
+}
+
+.sun-wrapper {
+    border: 1px solid;
+    position: fixed;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    font-size:100px;
+    line-height:1;
+    animation: circle 5s linear infinite;
+    /*transform-origin:50% 400px;*/
+}
+
+.sun {
+    color:green;
+}
+
+
+.traectory {
+    position: fixed;
+    border: 1px solid lime;
+    border-radius: 50%;
+}
