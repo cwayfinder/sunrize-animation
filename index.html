@@ -11,14 +11,12 @@
 
 <div class="toolbar">
   <p>Enter the time and press "Start"</p>
-  <label for="current-time">Current time</label>
-  <input type="time" id="current-time" value="15:40" min="00:00" max="23:59">
-  <button id="start">Start</button>
-  <br>
+  <div>Sunrise time: 6:00</div>
+  <div>Sunset time: 15:40</div>
+  <div>Current time:</div>
 
-  <p>or just select an option</p>
-  <input type="radio" name="time" value="00:00" id="radio0" checked>
-  <label for="radio0">00:00</label><br>
+  <input type="radio" name="time" value="6:30" id="radio0" checked>
+  <label for="radio0">6:30</label><br>
   <input type="radio" name="time" value="2:35" id="radio1">
   <label for="radio1">2:35</label><br>
   <input type="radio" name="time" value="9:35" id="radio2">
@@ -33,22 +31,20 @@
   <label for="radio6">16:35</label><br>
   <input type="radio" name="time" value="23:35" id="radio7">
   <label for="radio7">23:35</label><br>
+
+  <input type="time" id="current-time" value="15:02" min="00:00" max="23:59">
+  <button id="start">Apply</button>
 </div>
+
 
 <div class="trajectory"></div>
 
 <div class="horizon"></div>
 
-<div class="sun-wrapper">
-  <!--<div class="sun">☻</div>-->
-</div>
+<div class="sun-wrapper"></div>
 
 
 <script src="index.js"></script>
-
-<!--<script src="bower_components/gsap/src/uncompressed/TweenLite.js"></script>-->
-<!--<script src="bower_components/gsap/src/uncompressed/plugins/CSSPlugin.js"></script>-->
-
 <script src="anim.js"></script>
 </body>
 </html>

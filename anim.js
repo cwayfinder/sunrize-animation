@@ -1,3 +1,10 @@
+Sunrise.update({
+  sunriseTime: '6:00',
+  sunsetTime: '15:40',
+  currentTime: '6:30',
+  sunElement: document.querySelector('.sun-wrapper'),
+  trajectoryElement: document.querySelector('.trajectory')
+});
 
 
 function animate(time) {
@@ -7,15 +14,6 @@ function animate(time) {
     currentTime: time
   });
 }
-
-Sunrise.update({
-  sunriseTime: '6:00',
-  sunsetTime: '15:40',
-  currentTime: '6:30',
-  sunElement: document.querySelector('.sun-wrapper'),
-  trajectoryElement: document.querySelector('.trajectory')
-});
-
 
 
 document.querySelector('#start').addEventListener('click', function() {
