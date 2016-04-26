@@ -4,8 +4,7 @@ function animate(time) {
   Sunrise.update({
     sunriseTime: '6:00',
     sunsetTime: '15:40',
-    currentTime: time,
-    sunElement: document.querySelector('.sun-wrapper')
+    currentTime: time
   });
 }
 
@@ -13,7 +12,8 @@ Sunrise.update({
   sunriseTime: '6:00',
   sunsetTime: '15:40',
   currentTime: '6:30',
-  sunElement: document.querySelector('.sun-wrapper')
+  sunElement: document.querySelector('.sun-wrapper'),
+  trajectoryElement: document.querySelector('.trajectory')
 });
 
 
@@ -23,7 +23,7 @@ document.querySelector('#start').addEventListener('click', function() {
   animate(time);
 });
 
-var radioList = document.querySelectorAll('input[type="radio"');
+var radioList = document.querySelectorAll('input[type="radio"]');
 var radioArray = Array.prototype.slice.call(radioList, 0);
 radioArray.forEach(function(radio) {
   radio.addEventListener('click', function() {

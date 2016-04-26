@@ -29,7 +29,6 @@ const Sunrise = (function() {
     const sunRadius = config.sunElement.offsetWidth / 2;
 
     var R = (0.5 * h) + (Math.pow(L, 2) / (8 * h));  // (2)
-    //const R = h;
     const alpha = 2 * Math.acos((R - h) / R);  // (3)
     const gamma = 2 * Math.asin(sunRadius / (2 * R));  // (4)
     const phi = alpha + 2 * gamma;  // (5)
@@ -45,24 +44,30 @@ const Sunrise = (function() {
     }
   }
 
+  function prepareTrajectoryElement() {
+    if (config.trajectoryElement) {
+      const data = animationData();
+      const style = config.trajectoryElement.style;
+      style.position = 'fixed';
+      style.borderRadius = '50%';
+      style.width = (data.R * 2) + 'px';
+      style.height = (data.R * 2) + 'px';
+      style.left = (data.L / 2 - data.R) + 'px';
+      style.top = data.h + 'px';
+    }
+  }
+
   function prepareDomElements() {
-    var data = animationData();
+    prepareTrajectoryElement();
 
-    var trajectory = document.querySelector('.trajectory');
-    trajectory.style.width = (data.R * 2) + 'px';
-    trajectory.style.height = (data.R * 2) + 'px';
-    trajectory.style.left = (data.L / 2 - data.R) + 'px';
-    trajectory.style.top = data.h + 'px';
-    //trajectory.style.top = 0;
-
-    var sun = document.querySelector('.sun-wrapper');
-    sun.style.top = data.h + 'px';
-    //sun.style.top = 0;
-    sun.style.transformOrigin = `50% ${data.R + data.r}px`;
-
-    console.log('alpha', data.alpha);
-    console.log('gamma', data.gamma);
-    console.log('phi', data.phi);
+    const data = animationData();
+    const style = config.sunElement.style;
+    style.position = 'fixed';
+    style.left = '50%';
+    style.marginTop = `-${data.r}px`;
+    style.marginLeft = `-${data.r}px`;
+    style.top = data.h + 'px';
+    style.transformOrigin = `50% ${data.R + data.r}px`;
   }
 
   function moveSun() {
@@ -70,14 +75,20 @@ const Sunrise = (function() {
 
     var angle = getCurrentAngle() - (data.phi / 2);
     config.sunElement.style.transform = `rotate(${angle}deg)`;
-    console.log('angle', angle);
+  }
+
+  function updateProperty(_config, propertyName) {
+    if (_config[propertyName]) {
+      config[propertyName] = _config[propertyName];
+    }
   }
 
   function updateConfig(_config) {
-    config.sunriseTime = _config.sunriseTime;
-    config.sunsetTime = _config.sunsetTime;
-    config.currentTime = _config.currentTime;
-    config.sunElement = _config.sunElement;
+    updateProperty(_config, 'sunriseTime');
+    updateProperty(_config, 'sunsetTime');
+    updateProperty(_config, 'currentTime');
+    updateProperty(_config, 'sunElement');
+    updateProperty(_config, 'trajectoryElement');
   }
 
   function getCurrentAngle() {
@@ -95,8 +106,7 @@ const Sunrise = (function() {
       var prevAngle = calculateAngle(config.prevTime);
       var angle = calculateAngle(config.currentTime);
       var duration = calculateDuration(prevAngle, angle);
-      var sun = document.querySelector('.sun-wrapper');
-      sun.style.transition = `transform ${duration}s linear`;
+      config.sunElement.style.transition = `transform ${duration}s linear`;
     }
     config.prevTime = config.currentTime;
   }
@@ -113,8 +123,10 @@ const Sunrise = (function() {
         config.rendered = true;
       }
 
-      moveSun();
-      updateAnimationDuration();
+      if (config.sunriseTime && config.sunsetTime && config.currentTime) {
+        moveSun();
+        updateAnimationDuration();
+      }
     }
   }
 })();
