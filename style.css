@@ -1,27 +1,32 @@
-@keyframes circle {
-    from { transform:rotate(0deg); }
-    to { transform:rotate(360deg); }
-}
-
 .sun-wrapper {
+    display: none;
+
     border: 1px solid;
     position: fixed;
     left: 50%;
     margin-top: -50px;
     margin-left: -50px;
-    font-size:100px;
-    line-height:1;
-    animation: circle 5s linear infinite;
-    /*transform-origin:50% 400px;*/
+    font-size: 100px;
+    line-height: 1;
+
+    /* 80vmin is the diameter of the sun trajectory */
+    top: calc((100% - 80vmin) / 2);
+    transform-origin: 50% calc((80vmin + 100px) / 2);
 }
 
 .sun {
-    color:green;
+    color: orange;
 }
 
-
-.traectory {
+.trajectory {
     position: fixed;
     border: 1px solid lime;
     border-radius: 50%;
+
+    width: 80vmin;
+    height: 80vmin;
+
+    /* center the circle according to the screen size */
+    left: calc((100% - 80vmin) / 2);
+    top: calc((100% - 80vmin) / 2);
 }
