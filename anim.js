@@ -12,48 +12,39 @@ function calculateAngle(time) {
 }
 
 function calculateDuration(fromAngle, toAngle) {
-  const maxDuration = 10; // 10 seconds
+  const maxDuration = 5; // 5 seconds
   var delta = Math.abs(fromAngle - toAngle);
   return maxDuration * delta / 360;
 }
 
-var count = 0;
-function addCssRule(fromAngle, toAngle, duration) {
-  // remove previous animation styles
-  if (document.querySelector('#sun-style')) {
-    document.querySelector('#sun-style').remove();
-  }
+function animate(time) {
+  var prevAngle = calculateAngle(prevTime);
+  var angle = calculateAngle(time);
+  var duration = calculateDuration(prevAngle, angle);
 
-  var style = document.createElement('style');
-  style.id = 'sun-style';
-  var animationName = 'circle' + count++;
-  style.innerHTML = `
-          @keyframes ${animationName} {
-            from {
-                transform: rotate(${fromAngle}deg);
-            }
-            to {
-                transform: rotate(${toAngle}deg);
-            }
-          }
+  console.log(`time ${time}; angle ${angle}; duration ${duration}`);
 
-          .sun-wrapper {
-            animation: ${animationName} ${duration}s linear;
-          }
-  `;
-  document.querySelector('head').appendChild(style);
+  var sun = document.querySelector('.sun-wrapper');
+  sun.style.transition = `transform ${duration}s linear`;
+  sun.style.transform = `rotate(${angle}deg)`;
 }
 
 
+
+var prevTime = '00:00';
+
 document.querySelector('#start').addEventListener('click', function() {
-  var from = document.querySelector('#from').value;
-  var to = document.querySelector('#to').value;
+  var time = document.querySelector('#current-time').value;
+  animate(time);
+  prevTime = time;
+});
 
-  var fromAngle = calculateAngle(from);
-  var toAngle = calculateAngle(to);
-  var duration = calculateDuration(fromAngle, toAngle);
-
-  console.log(from, to, fromAngle, toAngle, duration);
-
-  addCssRule(fromAngle, toAngle, duration);
+var radioList = document.querySelectorAll('input[type="radio"');
+var radioArray = Array.prototype.slice.call(radioList, 0);
+radioArray.forEach(function(radio) {
+  radio.addEventListener('click', function() {
+    var time = radio.value;
+    animate(time);
+    prevTime = time;
+  });
 });
