@@ -2,7 +2,7 @@ Sunrise.update({
   sunriseTime: '6:00',
   sunsetTime: '15:40',
   currentTime: '6:30',
-  sunElement: document.querySelector('.sun-wrapper'),
+  sunElement: document.querySelector('.sun'),
   trajectoryElement: document.querySelector('.trajectory')
 });
 
