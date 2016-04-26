@@ -26,7 +26,9 @@ function animate(time) {
 
   var sun = document.querySelector('.sun-wrapper');
   sun.style.transition = `transform ${duration}s linear`;
-  sun.style.transform = `rotate(${angle}deg)`;
+
+  setSunPosition(angle);
+  // sun.style.transform = `rotate(${angle}deg)`;
 }
 
 
